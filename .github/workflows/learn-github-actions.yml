@@ -1,0 +1,21 @@
+name: 示例工作流程
+run-name: ${{ github.actor }} 是一个示例工作流程
+# 推送代码时触发执行工作流
+on: [push]
+# 定义工作流程中执行的任务（Job 作业)
+jobs:
+  # 作业名称：检查 bats 框架的版本号
+  check-bats-version:
+    runs-on: ubuntu-latest
+    # 定义步骤
+    steps:
+      # 使用 actions/checkout 动作从 GitHub 仓库拉取代码
+      - uses: actions/checkout@v4
+      # 使用  actions/setup-node 动作安装 Node.js 环境
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      #  运行命令安装 bats 框架
+      - run: npm install -g bats
+      # 查看版本号
+      - run: bats --version
